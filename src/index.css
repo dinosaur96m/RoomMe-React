@@ -11,3 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.konvajs-content {
+  border: 5px solid red;
+  margin: 0 auto;
+}
+
+#toolbox {
+  height: 100px;
+  width: 600px;
+  margin: 0 auto;
+  border: 5px solid aqua;
+}
