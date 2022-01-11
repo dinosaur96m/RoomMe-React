@@ -2,7 +2,7 @@
 const Thumbnail = (props) => {
     return (
         <div>
-            <image style={{height: props.item.dimensions[0]}} src={props.item.image}></image>
+            <img style={{height: 80}} src={props.item.image} onClick={() => props.paintImage(props.item)}></img>
         </div>
     )
 }

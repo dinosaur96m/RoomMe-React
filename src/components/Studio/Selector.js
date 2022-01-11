@@ -15,29 +15,25 @@ const Selector = (props) => {
     // }
     // fucntion that sets sub
 
-    // function: map furniture onto baby components
-        // filter by cat and sub
+    // map furniture onto child components
     const loadThumbs = (e) => {
+        // filter by cat and TO DO: sub
         let filteredFurniture = props.furniture.filter((f) => f.category.includes(e.target.innerText.toLowerCase()))
-        console.log('ff: ', filteredFurniture)
 
-        // TO DO: why is thumbs undefined??
+        // map filtered list onto children
         let thumbs = filteredFurniture.map(f => {
-            <Thumbnail item={f}/>
+            return <Thumbnail item={f} key={f._id} paintImage={props.paintImage}/>
         })
-        console.log('thumbs: ', thumbs)
         setThumbnails(thumbs)
     }
    
-
-    // function: populate canvas with clicked item
     const categoryButtons = [
-        <button onClick={loadThumbs}>Kitchen</button>,
-        <button onClick={loadThumbs}>Office</button>,
-        <button onClick={loadThumbs}>Living</button>,
-        <button onClick={loadThumbs}>Bedroom</button>,
-        <button onClick={loadThumbs}>Dining</button>,
-        <button onClick={loadThumbs}>Art</button>
+        <button onClick={loadThumbs} key={"Kitchen"}>Kitchen</button>,
+        <button onClick={loadThumbs} key={"Office"}>Office</button>,
+        <button onClick={loadThumbs} key={"Living"}>Living</button>,
+        <button onClick={loadThumbs} key={"Bedroom"}>Bedroom</button>,
+        <button onClick={loadThumbs} key={"Dining"}>Dining</button>,
+        <button onClick={loadThumbs} key={"Art"}>Art</button>
     ]
 
     return(
