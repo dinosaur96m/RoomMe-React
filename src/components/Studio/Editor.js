@@ -13,7 +13,7 @@ const Editor = () => {
 	const [y, setY] = useState(50)
 	// const [isDragging, setIsDragging] = useState(false)
     const [furniture, setFurniture] = useState([])
-    // TO DO: Array of canvas images
+    // Pass canvasImages to ImageMapper
     const [canvasImages, setCanvasImages] = useState([])
 
     const loadFurniture = () => {
@@ -28,20 +28,33 @@ const Editor = () => {
         .catch((err) => console.log(err))
     }
 
+    //if ImgMapper eliminated
+    const populatedImages = []
+    canvasImages.forEach(i => {
+            console.log("i", i)
+            // console.log("i.image", i.image)
+            // console.log("i.dimensions[0]", i.dimensions[0])
+            // console.log("i.dimensions[i]", i.dimensions[1])
+            populatedImages.push(<CanvasImage url={i.image} height={i.dimensions[0]} width={i.dimensions[1]}/> )
+    })
+
+
+    console.log("populate: ", populatedImages)    
+
     useEffect(() => loadFurniture(), [])
    
+   
 
-    // function: Thumbnail.onClick: paintImage on Canvas
+    // function: Thumbnail->onClick: paintImage on Canvas
     const paintImage = (obj) => {
         console.log("obj: ", obj)
         // map e.target onto CanvasImage.js
-        // push new Canvas Image into state
-        // TO DO: debug: new images replaces most recent 
-            //unless a category button is pressed in betwenn
-        let newArray = [...canvasImages, <CanvasImage url={obj.image} height={obj.dimensions[0]} width={obj.dimensions[1]}/>]
-        setCanvasImages(newArray)
+        // push new obj into state -> will pass as props to Image Mapper
+        // let newArray = [...canvasImages, obj]
+        setCanvasImages([...canvasImages, obj])
     }
 
+    // Possible Workaround : function that updates coordinates in State rather than CanvasImage
 
     return (
         <>
@@ -66,7 +79,7 @@ const Editor = () => {
 						setY(e.target.y())
 					}}
 				/>
-                {canvasImages}
+                {populatedImages}
 				</Layer>
 			</Stage>
             <Selector furniture={furniture} paintImage={paintImage}/>

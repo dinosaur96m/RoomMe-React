@@ -19,13 +19,14 @@ const Selector = (props) => {
     const loadThumbs = (e) => {
         // filter by cat and TO DO: sub
         let filteredFurniture = props.furniture.filter((f) => f.category.includes(e.target.innerText.toLowerCase()))
-
+        setThumbnails(filteredFurniture)
         // map filtered list onto children
-        let thumbs = filteredFurniture.map(f => {
-            return <Thumbnail item={f} key={f._id} paintImage={props.paintImage}/>
-        })
-        setThumbnails(thumbs)
+    
     }
+
+    const thumbs = thumbnails.map(f => {
+        return <Thumbnail item={f} key={f._id} paintImage={props.paintImage}/>
+    })
    
     const categoryButtons = [
         <button onClick={loadThumbs} key={"Kitchen"}>Kitchen</button>,
@@ -42,7 +43,7 @@ const Selector = (props) => {
          <div>
             {categoryButtons}
          </div>
-          {thumbnails}
+          {thumbs}
         </div>
     )   
 }
