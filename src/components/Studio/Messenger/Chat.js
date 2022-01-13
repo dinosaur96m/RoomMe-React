@@ -4,35 +4,62 @@ import 'antd/dist/antd.css'
 import { Card, Input, Avatar, Typography } from "antd"
 
 const { Search } = Input
+const {Text} = Typography
 const client = new W3CWebSocket('ws://localhost:8500')
 
 const Chat = () => {
 
     // initialize state
-    const [userName, setUserName] = useState('')
-    const [isLoggedIn, setIsLogged] = useState(false)
+        // add userName from auth
+    const [userName, setUserName] = useState('bingo')
+    const [isLoggedIn, setIsLogged] = useState(true)
+    const [messages, setMessages] = useState([])
+    const [textboxVal, setTextboxVal] = useState('')
 
     const onButtonClicked = (value) => {
         console.log("sending mssg: ", value)
         client.send(JSON.stringify({
             type: "message",
-            msg: value
+            msg: value,
+            user: userName
         }))
     }
     
-    useEffect(() => {
-        client.onopen = () => {
-            console.log('Websocket Client Connected')
+   
+    client.onopen = () => {
+        console.log('Websocket Client Connected')
+    }
+    client.onmessage = (message) => {
+        const dataFromServer = JSON.parse(message.data)
+        console.log('got response! ', dataFromServer)
+        if (dataFromServer.type === "message") {
+            setMessages([
+                ...messages,
+                {
+                    msg: dataFromServer.msg,
+                    user: dataFromServer.user
+                }
+            ])
         }
-        client.onmessage = (message) => {
-            const dataFromServer = JSON.parse(message.data)
-            console.log('got response! ', dataFromServer)
-        }
-    }, [])
+    }
+   
+
+    
     return(
         <div id="chatbox">
-            <h2>Chatbox</h2>
+            <Text type="secondary" style={{fontSize: '36px'}}>RoomMe Chat</Text>
             <button onClick={() => onButtonClicked("Hello!")}>Send Message</button>
+            {messages.map(msg => <p>message: {msg.msg} user: {msg.user}</p>)}
+            <div id="text-input">
+                <Search
+                    placeholder="type messages here"
+                    enterButton="Send"
+                    value={textboxVal}
+                    size="large"
+                    onChange={e => setTextboxVal(e.target.value)}
+                    onSearch={value => onButtonClicked(value)}
+                />
+            </div>
         </div>
     )
 }

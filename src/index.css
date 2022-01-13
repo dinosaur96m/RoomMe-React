@@ -30,3 +30,10 @@ code {
   width: 600px;
   margin: 0 auto 50px auto;
 }
+
+#text-input {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+}
