@@ -23,3 +23,10 @@ code {
   margin: 0 auto;
   border: 5px solid aqua;
 }
+
+#chatbox {
+  border: 5px solid goldenrod;
+  height: 300px;
+  width: 600px;
+  margin: 0 auto 50px auto;
+}
