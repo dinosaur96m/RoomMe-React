@@ -8,11 +8,11 @@ const { Text } = Typography
 const { Meta } = Card
 const client = new W3CWebSocket('ws://localhost:8500')
 
-const Chat = () => {
-
+const Chat = (props) => {
+    console.log('user: ', props.user)
     // initialize state
         // add userName from auth
-    const [userName, setUserName] = useState('bingo')
+    const [userName, setUserName] = useState(props.user.email)
     const [isLoggedIn, setIsLogged] = useState(true)
     const [messages, setMessages] = useState([])
     const [textboxVal, setTextboxVal] = useState('')
@@ -24,6 +24,7 @@ const Chat = () => {
             msg: value,
             user: userName
         }))
+        setTextboxVal('')
     }
     
    
@@ -46,7 +47,7 @@ const Chat = () => {
    
     const displayedMessages = []
     messages.forEach(msg => {
-        displayedMessages.push(<Card key={msg.msg} style={{width: 300, margin: '16px 4px 0px 4px', alignSelf: userName === msg.user ? 'flex-end' : 'flex-start'}}>
+        displayedMessages.push(<Card key={msg.msg} style={{width: 300, margin: '16px 4px 0px 4px', color: userName === msg.user ? 'blue' : 'black'}}>
             <Meta
                 avatar={
                     <Avatar style={{color: '#f56a00', backgroundColor: '#fde3cf'}}>{msg.user[0].toUpperCase()}</Avatar>
@@ -81,16 +82,3 @@ const Chat = () => {
 }
 
 export default Chat
-
-
-// {messages.map(msg => {
-//     <Card key={msg.msg} style={{width: 300, margin: '16px 4px 0px 4px', alignSelf: userName === msg.user ? 'flex-end' : 'flex-start'}}>
-//         <Meta
-//             avatar={
-//                 <Avatar style={{color: '#f56a00', backgroundColor: '#fde3cf'}}>{msg.user[0].toUpperCase()}</Avatar>
-//             }
-//             title={msg.user}
-//             description={msg.msg}
-//         />
-//     </Card>
-// })}
