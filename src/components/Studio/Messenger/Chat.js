@@ -47,10 +47,10 @@ const Chat = (props) => {
    
     const displayedMessages = []
     messages.forEach(msg => {
-        displayedMessages.push(<Card key={msg.msg} style={{width: 300, margin: '16px 4px 0px 4px', color: userName === msg.user ? 'blue' : 'black'}}>
+        displayedMessages.push(<Card key={msg.msg} style={{width: 300, margin: '16px 4px 0px 4px', alignSelf: userName === msg.user ? 'right' : 'left'}}>
             <Meta
                 avatar={
-                    <Avatar style={{color: '#f56a00', backgroundColor: '#fde3cf'}}>{msg.user[0].toUpperCase()}</Avatar>
+                    <Avatar style={{color: '#5c8aff' , backgroundColor: userName === msg.user ?'#174dd4' : '#cfd5e6' }}>{msg.user[0].toUpperCase()}</Avatar>
                 }
                 title={msg.user}
                 description={msg.msg}
@@ -63,7 +63,6 @@ const Chat = (props) => {
     return(
         <div id="chatbox">
             <Text type="secondary" style={{fontSize: '36px'}}>RoomMe Chat</Text>
-            <button onClick={() => onButtonClicked("Hello!")}>Send Message</button>
             <div>
                 {displayedMessages}
             </div>
