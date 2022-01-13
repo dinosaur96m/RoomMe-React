@@ -2,28 +2,17 @@ import { useState } from "react"
 import Thumbnail from "./Thumbnail"
 
 const Selector = (props) => {
-    // hold category and subcategory in state
-    // const [category, setCategory] = useState('')
-        // const [subcategory, setSubcategory] = useState('')
-    // // hold current thumbnails in state
+    //hold current thumbnails in state
     const [thumbnails, setThumbnails] = useState([])
 
-    // function that sets cat
-    // const catState = (e) => {
-    //     console.log(e.target.innerText)
-    //     setCategory(e.target.innerText)
-    // }
-    // fucntion that sets sub
-
-    // map furniture onto child components
+    // filter furniture props according to buttons
     const loadThumbs = (e) => {
-        // filter by cat and TO DO: sub
+        // filter by category 
         let filteredFurniture = props.furniture.filter((f) => f.category.includes(e.target.innerText.toLowerCase()))
         setThumbnails(filteredFurniture)
-        // map filtered list onto children
-    
     }
 
+    // map filtered list onto children
     const thumbs = thumbnails.map(f => {
         return <Thumbnail item={f} key={f._id} paintImage={props.paintImage}/>
     })
@@ -39,11 +28,11 @@ const Selector = (props) => {
 
     return(
         <div>
-         <h3>Furniture Selection</h3>
-         <div>
-            {categoryButtons}
-         </div>
-          {thumbs}
+            <h3>Furniture Selection</h3>
+            <div>
+                {categoryButtons}
+            </div>
+            {thumbs}
         </div>
     )   
 }
