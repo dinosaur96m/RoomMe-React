@@ -7,15 +7,13 @@ import axios from 'axios'
 import Selector from './Selector';
 import CanvasImage from './CanvasImage';
 
-const Editor = () => {
-    // Draggable Text
-    const [x, setX] = useState(50)
-	const [y, setY] = useState(50)
-	// const [isDragging, setIsDragging] = useState(false)
+const Editor = (props) => {
+
     const [furniture, setFurniture] = useState([])
     // Pass canvasImages to ImageMapper
     const [canvasImages, setCanvasImages] = useState([])
 
+    // get all furniture from the database
     const loadFurniture = () => {
         return axios({
             method: 'GET',
@@ -28,18 +26,34 @@ const Editor = () => {
         .catch((err) => console.log(err))
     }
 
-    //if ImgMapper eliminated
+    props.client.onopen = () => {
+        console.log('Editor.js Connected to Websocket')
+    }
+
     const populatedImages = []
-    canvasImages.forEach(i => {
-            console.log("i", i)
-            // console.log("i.image", i.image)
-            // console.log("i.dimensions[0]", i.dimensions[0])
-            // console.log("i.dimensions[i]", i.dimensions[1])
-            populatedImages.push(<CanvasImage url={i.image} height={i.dimensions[0]} width={i.dimensions[1]}/> )
-    })
+    props.client.onmessage = (message) => {
+        const dataFromServer = JSON.parse(message.data)
+        console.log('got response in Editor! ', dataFromServer)
+            setCanvasImages([...canvasImages, 
+                {
+                    image: dataFromServer.imageObj.image,
+                    dimensions: dataFromServer.imageObj.dimensions
+                }])
+            canvasImages.forEach(i => {
+                console.log("i", i)
+                // console.log("i.image", i.image)
+                // console.log("i.dimensions[0]", i.dimensions[0])
+                // console.log("i.dimensions[i]", i.dimensions[1])
+                populatedImages.push(<CanvasImage url={i.image} height={i.dimensions[0]} width={i.dimensions[1]}/> )
+        })
+    
+    }
+
+    // map canvasImage objs onto components
+    
+    
 
 
-    console.log("populate: ", populatedImages)    
 
     useEffect(() => loadFurniture(), [])
    
@@ -51,7 +65,11 @@ const Editor = () => {
         // map e.target onto CanvasImage.js
         // push new obj into state -> will pass as props to Image Mapper
         // let newArray = [...canvasImages, obj]
-        setCanvasImages([...canvasImages, obj])
+        
+        props.client.send(JSON.stringify({
+            type: "canvasImageAdded",
+            imageObj: obj
+        }))
     }
 
     // Possible Workaround : function that updates coordinates in State rather than CanvasImage
@@ -64,21 +82,6 @@ const Editor = () => {
         </div>
         <Stage width={600} height={600}>
 				<Layer>
-				<Text
-					text="Draggable Text"
-					x={x}
-					y={y}
-					draggable
-					// fill={isDragging ? 'green' : 'black'}
-					// onDragStart={() => {
-					// 	setIsDragging(true)
-					// }}
-					onDragEnd={e => {
-						// setIsDragging(false)
-						setX(e.target.x())
-						setY(e.target.y())
-					}}
-				/>
                 {populatedImages}
 				</Layer>
 			</Stage>

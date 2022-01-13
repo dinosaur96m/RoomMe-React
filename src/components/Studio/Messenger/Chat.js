@@ -1,25 +1,24 @@
 import { useEffect, useState } from "react"
-import { w3cwebsocket as W3CWebSocket } from "websocket"
+// import { w3cwebsocket as W3CWebSocket } from "websocket"
 import 'antd/dist/antd.css' 
 import { Card, Input, Avatar, Typography } from "antd"
 
 const { Search } = Input
 const { Text } = Typography
 const { Meta } = Card
-const client = new W3CWebSocket('ws://localhost:8500')
+// const client = new W3CWebSocket('ws://localhost:8500')
 
 const Chat = (props) => {
-    console.log('user: ', props.user)
     // initialize state
         // add userName from auth
     const [userName, setUserName] = useState(props.user.email)
-    const [isLoggedIn, setIsLogged] = useState(true)
+    // const [isLoggedIn, setIsLogged] = useState(true)
     const [messages, setMessages] = useState([])
     const [textboxVal, setTextboxVal] = useState('')
 
     const onButtonClicked = (value) => {
         console.log("sending mssg: ", value)
-        client.send(JSON.stringify({
+        props.client.send(JSON.stringify({
             type: "message",
             msg: value,
             user: userName
@@ -27,11 +26,11 @@ const Chat = (props) => {
         setTextboxVal('')
     }
     
-   
-    client.onopen = () => {
-        console.log('Websocket Client Connected')
+
+    props.client.onopen = () => {
+        console.log('Chat.js Connected to Websocket')
     }
-    client.onmessage = (message) => {
+    props.client.onmessage = (message) => {
         const dataFromServer = JSON.parse(message.data)
         console.log('got response! ', dataFromServer)
         if (dataFromServer.type === "message") {
@@ -44,7 +43,7 @@ const Chat = (props) => {
             ])
         }
     }
-   
+
     const displayedMessages = []
     messages.forEach(msg => {
         displayedMessages.push(<Card key={msg.msg} style={{width: 300, margin: '16px 4px 0px 4px', alignSelf: userName === msg.user ? 'right' : 'left'}}>
