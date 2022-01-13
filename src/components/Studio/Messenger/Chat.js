@@ -4,7 +4,8 @@ import 'antd/dist/antd.css'
 import { Card, Input, Avatar, Typography } from "antd"
 
 const { Search } = Input
-const {Text} = Typography
+const { Text } = Typography
+const { Meta } = Card
 const client = new W3CWebSocket('ws://localhost:8500')
 
 const Chat = () => {
@@ -43,13 +44,28 @@ const Chat = () => {
         }
     }
    
+    const displayedMessages = []
+    messages.forEach(msg => {
+        displayedMessages.push(<Card key={msg.msg} style={{width: 300, margin: '16px 4px 0px 4px', alignSelf: userName === msg.user ? 'flex-end' : 'flex-start'}}>
+            <Meta
+                avatar={
+                    <Avatar style={{color: '#f56a00', backgroundColor: '#fde3cf'}}>{msg.user[0].toUpperCase()}</Avatar>
+                }
+                title={msg.user}
+                description={msg.msg}
+            />
+        </Card>
+        )
+    })
 
     
     return(
         <div id="chatbox">
             <Text type="secondary" style={{fontSize: '36px'}}>RoomMe Chat</Text>
             <button onClick={() => onButtonClicked("Hello!")}>Send Message</button>
-            {messages.map(msg => <p>message: {msg.msg} user: {msg.user}</p>)}
+            <div>
+                {displayedMessages}
+            </div>
             <div id="text-input">
                 <Search
                     placeholder="type messages here"
@@ -65,3 +81,16 @@ const Chat = () => {
 }
 
 export default Chat
+
+
+// {messages.map(msg => {
+//     <Card key={msg.msg} style={{width: 300, margin: '16px 4px 0px 4px', alignSelf: userName === msg.user ? 'flex-end' : 'flex-start'}}>
+//         <Meta
+//             avatar={
+//                 <Avatar style={{color: '#f56a00', backgroundColor: '#fde3cf'}}>{msg.user[0].toUpperCase()}</Avatar>
+//             }
+//             title={msg.user}
+//             description={msg.msg}
+//         />
+//     </Card>
+// })}

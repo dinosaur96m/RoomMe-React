@@ -32,8 +32,7 @@ code {
 }
 
 #text-input {
-  position: fixed;
-  width: 100%;
-  bottom: 0;
-  left: 0;
+
+ width: 594;
+ margin: 0 auto;
 }
