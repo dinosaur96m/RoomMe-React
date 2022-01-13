@@ -30,29 +30,28 @@ const Editor = (props) => {
         console.log('Editor.js Connected to Websocket')
     }
 
-    const populatedImages = []
+    
     props.client.onmessage = (message) => {
         const dataFromServer = JSON.parse(message.data)
-        console.log('got response in Editor! ', dataFromServer)
+        if (dataFromServer.type === "canvasImageAdded") {
+            console.log('img obj from db: ', dataFromServer.imageObj)
             setCanvasImages([...canvasImages, 
                 {
                     image: dataFromServer.imageObj.image,
                     dimensions: dataFromServer.imageObj.dimensions
                 }])
-            canvasImages.forEach(i => {
-                console.log("i", i)
-                // console.log("i.image", i.image)
-                // console.log("i.dimensions[0]", i.dimensions[0])
-                // console.log("i.dimensions[i]", i.dimensions[1])
-                populatedImages.push(<CanvasImage url={i.image} height={i.dimensions[0]} width={i.dimensions[1]}/> )
-        })
-    
+        }
     }
 
     // map canvasImage objs onto components
-    
-    
-
+    const populatedImages = []
+    canvasImages.forEach(i => {
+        console.log("i", i)
+        // console.log("i.image", i.image)
+        // console.log("i.dimensions[0]", i.dimensions[0])
+        // console.log("i.dimensions[i]", i.dimensions[1])
+        populatedImages.push(<CanvasImage url={i.image} height={i.dimensions[0]} width={i.dimensions[1]}/> )
+    })
 
 
     useEffect(() => loadFurniture(), [])
