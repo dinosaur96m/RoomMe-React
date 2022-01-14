@@ -1,4 +1,4 @@
-# RooMme
+# RoomMe
 ![AppView](/public/readmeimages/app.png)
 # Technologies:
 ### MERN stack, Mongoose, Websocket, Bootstrap, Konva, Axios, useImage, ANTD
