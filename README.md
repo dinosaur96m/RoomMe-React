@@ -4,10 +4,10 @@
 ### MERN stack, Mongoose, Websocket, Bootstrap, Konva, Axios, useImage, ANTD
 
 ## Websocket
-    Websocket was used to create an open connection between clients and the server.
-    RoomMes sends 3 'types' of data through the Websocket: 'message', 'trackingXy', 'canvasImageAdded'. The message type transmits messages in the chat component. The canvasImageAdded and trackingXy send json data that tracks the images added to the canvas and their current x,y coordinates.
+Websocket was used to create an open connection between clients and the server.
+RoomMes sends 3 'types' of data through the Websocket: 'message', 'trackingXy', 'canvasImageAdded'. The message type transmits messages in the chat component. The canvasImageAdded and trackingXy send json data that tracks the images added to the canvas and their current x,y coordinates.
 ## React-Konva
-    Konva has easy to read documentation with codesandbox examples. Using Konva in react is as simple as Importing the `<Stage/>` and `<Layer/>` components, and an `<Image/>` componenet (with the help of the useImage npm package) for each image you want to use. Making the content draggable is as simple as adding the Konva 'draggable' attribute.
+ Konva has easy to read documentation with codesandbox examples. Using Konva in react is as simple as Importing the `<Stage/>` and `<Layer/>` components, and an `<Image/>` componenet (with the help of the useImage npm package) for each image you want to use. Making the content draggable is as simple as adding the Konva 'draggable' attribute.
 # Approach
 Going into my capstone project, I knew I wanted to utilize React, websockets and a canvas to create a fullstack application with a lot of front end functionality. The idea for RoomMe was inspired by mother, who always love collaborating with her friends when updating a space in her home. 
 
@@ -17,9 +17,9 @@ I then began integragting the chat fucntion so decsions on the collaboratively b
 Taking what I learned from building in the chat functionality, I then got to work connecting the canvas to the websocket. IN short, I had to send JSON obects to the server, which emitted the data to every client connected to the websocket. The clients would then push these objects into React state to be renedered as components.
 
 # React npm packages Installation
-npm install axios konva react-konva use-image websocket antd
+    npm install axios konva react-konva use-image websocket antd
 # Express npm packages Installation
-npm install websocket
+    npm install websocket
 
 # User Stories and Flow
 Users of RoomMe want to collaborate with their friends in real time when deciding how to layout a space, being able to modify the same canvas with furniture images and communicate with a live chat.
