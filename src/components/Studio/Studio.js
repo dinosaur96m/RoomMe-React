@@ -40,7 +40,7 @@ const Studio = (props) => {
         })
         .catch((err) => console.log(err))
     }
-    useEffect(() => loadFurniture(), [])
+    useEffect(() => loadFurniture(), [canvasImages])
 
     //// editor funcitons ////
     // function: send clicked thumbnail to all clients 
@@ -48,6 +48,7 @@ const Studio = (props) => {
     const paintImage = (obj) => {
         console.log("obj: ", obj)
         // let newArray = [...canvasImages, obj]
+        console.log("CI Length", canvasImages.length)
         client.send(JSON.stringify({
             type: "canvasImageAdded",
             imageObj: obj,
@@ -103,20 +104,23 @@ const Studio = (props) => {
                 {
                     image: dataFromServer.imageObj.image,
                     dimensions: dataFromServer.imageObj.dimensions,
-                    imageIndex: dataFromServer.index,
+                    imageIndex: dataFromServer.imageIndex,
                     x: dataFromServer.x,
                     y: dataFromServer.y
                 }
             ])
         })
-        } else if (dataFromServer.type === "trackingXy") {
+        } 
+        while (dataFromServer.type === "trackingXy") {
             console.log("setting canavasImages[" + dataFromServer.index + "] x,y to: " + dataFromServer.x + "," + dataFromServer.y )
             // save array of canvas Image objects
-            let canvasState = canvasImages
-            // update the x and y of targeted object
-            canvasState[dataFromServer.index].x = dataFromServer.x
-            canvasState[dataFromServer.index].y = dataFromServer.y
-            setCanvasImages(canvasState)
+            setCanvasImages(() => {
+                let canvasState = canvasImages
+                // update the x and y of targeted object
+                canvasState[dataFromServer.index].x = dataFromServer.x
+                canvasState[dataFromServer.index].y = dataFromServer.y
+                return (canvasState)
+            })
         }
     }
 

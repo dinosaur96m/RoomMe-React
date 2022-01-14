@@ -15,12 +15,13 @@ const CanvasImage = (props) => {
         //     setHeight(props.height)
         //     setWidth(props.width)
         // })
+    console.log("ci props: ", props)
     const imageIndex = props.imageIndex
         // across socket
-        const trackImage = (target) => {
-                console.log(`tracking ${imageIndex}th image`)
-               props.updateXy(target.x, target.y, imageIndex)
-        }
+        // const trackImage = (target) => {
+        //         console.log(`tracking ${props.imageIndex}th image`)
+        //        props.updateXy(target.x, target.y, imageIndex)
+        // }
        
 
         // const enlarge = () => {
@@ -44,9 +45,10 @@ const CanvasImage = (props) => {
                     // opacity={selected ? .5 : 1}
 					// fill={isDragging ? 'green' : 'black'}
 					onDragStart={() => setIsDragging(true)}
-                    onDragMove={e => trackImage(e.target)}
+                    // onDragMove={e => }
 					onDragEnd={e => {
 						setIsDragging(false)
+                        props.updateXy(e.target.x(), e.target.y(), props.imageIndex)
 						// props.setX(e.target.x())
 						// props.setY(e.target.y())
                     }}

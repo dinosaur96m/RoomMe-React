@@ -1,12 +1,16 @@
 import { Stage, Layer} from 'react-konva';
+import { useEffect } from 'react';
 // import children
 import Selector from './Selector';
 import CanvasImage from './CanvasImage';
 
+
 const Editor = (props) => {
 
+    useEffect(() => {}, [props.canvasImages])
     // map canvasImage objs onto components
     const populatedImages = []
+    
     props.canvasImages.forEach(i => {
         // console.log("i", i)
         // console.log("i.image", i.image)
