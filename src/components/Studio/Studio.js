@@ -110,8 +110,7 @@ const Studio = (props) => {
                 }
             ])
         })
-        } 
-        while (dataFromServer.type === "trackingXy") {
+        } else if (dataFromServer.type === "trackingXy") {
             console.log("setting canavasImages[" + dataFromServer.index + "] x,y to: " + dataFromServer.x + "," + dataFromServer.y )
             // save array of canvas Image objects
             setCanvasImages(() => {
