@@ -14,14 +14,19 @@ const client = new W3CWebSocket('ws://localhost:8500')
 const Studio = (props) => {
 
     //// state ////
-    // initialize chat state
+    // send to: Chat.js
         // TO DO: add userName from auth
     const [userName] = useState(props.user.email)
     const [messages, setMessages] = useState([])
     const [textboxVal, setTextboxVal] = useState('')
-    // initialize Editior state
+    // send to : Editior.js
     const [furniture, setFurniture] = useState([])
     const [canvasImages, setCanvasImages] = useState([])
+    // send to: CanvasImage.js
+    // const [x, setX] = useState(65)
+    // const [y, setY] = useState(65)
+    // const [height, setHeight] = useState(props.height)
+    // const [width, setWidth] = useState(props.width)
 
     //// get all furniture from the database ////
     const loadFurniture = () => {
@@ -45,7 +50,20 @@ const Studio = (props) => {
         // let newArray = [...canvasImages, obj]
         client.send(JSON.stringify({
             type: "canvasImageAdded",
-            imageObj: obj
+            imageObj: obj,
+            imageIndex: canvasImages.length,
+            x: 65,
+            y: 65
+        }))
+    }
+
+    // function: track xy coords of a CanvasImage
+    const updateXy = (x, y, idx) => {
+        client.send(JSON.stringify({
+            type: "trackingXy",
+            index: idx,
+            x: x,
+            y: y,
         }))
     }
 
@@ -68,27 +86,44 @@ const Studio = (props) => {
         const dataFromServer = JSON.parse(message.data)
         console.log('got response! ', dataFromServer)
         if (dataFromServer.type === "message") {
-            setMessages([
+            console.log("message form db: ", dataFromServer.msg)
+            setMessages(() => {
+                return([
                 ...messages,
                 {
                     msg: dataFromServer.msg,
                     user: dataFromServer.user
                 }
             ])
+        })
         } else if (dataFromServer.type === "canvasImageAdded") {
             console.log('img obj from db: ', dataFromServer.imageObj)
-            setCanvasImages([...canvasImages, 
+            setCanvasImages(() => {
+                return([...canvasImages, 
                 {
                     image: dataFromServer.imageObj.image,
-                    dimensions: dataFromServer.imageObj.dimensions
-                }])
+                    dimensions: dataFromServer.imageObj.dimensions,
+                    imageIndex: dataFromServer.index,
+                    x: dataFromServer.x,
+                    y: dataFromServer.y
+                }
+            ])
+        })
+        } else if (dataFromServer.type === "trackingXy") {
+            console.log("setting canavasImages[" + dataFromServer.index + "] x,y to: " + dataFromServer.x + "," + dataFromServer.y )
+            // save array of canvas Image objects
+            let canvasState = canvasImages
+            // update the x and y of targeted object
+            canvasState[dataFromServer.index].x = dataFromServer.x
+            canvasState[dataFromServer.index].y = dataFromServer.y
+            setCanvasImages(canvasState)
         }
     }
 
     return (
         <>
             <h1>This Is The Studio-Environment View</h1>
-            <Editor client={client} canvasImages={canvasImages} furniture={furniture} paintImage={paintImage}/>
+            <Editor client={client} canvasImages={canvasImages} furniture={furniture} paintImage={paintImage} updateXy={updateXy}/>
             <Chat userName={userName} messages={messages} textboxVal={textboxVal} setTextboxVal={setTextboxVal} onSend={onSend}/>
         </>
     )
