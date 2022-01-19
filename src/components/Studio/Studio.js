@@ -3,13 +3,14 @@ import { w3cwebsocket as W3CWebSocket } from "websocket"
 // import packages and variables
 import 'bootstrap/dist/css/bootstrap.min.css'
 import apiUrl from '../../apiConfig'
+import socketUrl from '../../socketConfig'
 import axios from 'axios'
 // import children
 import Editor from "./Editor"
 import Chat from "./Messenger/Chat"
 
 // instantiate websocket
-const client = new W3CWebSocket('ws://localhost:8500')
+const client = new W3CWebSocket(socketUrl)
 
 const Studio = (props) => {
 
