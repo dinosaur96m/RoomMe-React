@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 // import children
 import Selector from './Selector';
 import CanvasImage from './CanvasImage';
+import { Container, Row, Col } from 'react-bootstrap';
+
 
 
 const Editor = (props) => {
@@ -20,18 +22,20 @@ const Editor = (props) => {
     })
 
     return (
-        <>
-        <h2> Editor.js</h2>
-        <div id="toolbox">
-            <h2>Toolbox</h2>
-        </div>
-        <Stage width={600} height={600}>
-				<Layer>
-                {populatedImages}
-				</Layer>
-			</Stage>
-            <Selector furniture={props.furniture} paintImage={props.paintImage}/>
-        </>
+        <Container>
+            <Row>
+            <Col>
+                <Stage width={600} height={600}>
+                    <Layer>
+                    {populatedImages}
+                    </Layer>
+                </Stage>
+            </Col>
+            <Col>
+                <Selector furniture={props.furniture} paintImage={props.paintImage}/>
+            </Col>
+            </Row>
+        </Container>
     )
 }
 

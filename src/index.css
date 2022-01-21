@@ -14,7 +14,7 @@ code {
 
 .konvajs-content {
   border: 5px solid red;
-  margin: 0 auto;
+  /* margin: 0 auto; */
 }
 
 #toolbox {

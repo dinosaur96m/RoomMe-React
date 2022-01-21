@@ -3,7 +3,7 @@ import { w3cwebsocket as W3CWebSocket } from "websocket"
 // import packages and variables
 import 'bootstrap/dist/css/bootstrap.min.css'
 import apiUrl from '../../apiConfig'
-import socketUrl from '../../socketConfig'
+import socketUrl from "../../socketConfig"
 import axios from 'axios'
 // import children
 import Editor from "./Editor"
@@ -126,7 +126,7 @@ const Studio = (props) => {
 
     return (
         <>
-            <h1>This Is The Studio-Environment View</h1>
+            <h1>Welcome to the Studio</h1>
             <Editor client={client} canvasImages={canvasImages} furniture={furniture} paintImage={paintImage} updateXy={updateXy}/>
             <Chat userName={userName} messages={messages} textboxVal={textboxVal} setTextboxVal={setTextboxVal} onSend={onSend}/>
         </>

@@ -39,19 +39,21 @@ const unauthenticatedOptions = (
 
 const alwaysOptions = (
 	<>
+		<Nav.Item>
 		<Nav.Link>
 			<Link to='/' style={linkStyle}>
 				Home
 			</Link>
 		</Nav.Link>
+		</Nav.Item>
 	</>
 )
 
 const Header = ({ user }) => (
-	<Navbar bg='primary' variant='dark' expand='md'>
+	<Navbar fill bg='dark' variant='tabs' expand='md'>
 		<Navbar.Brand>
             <Link to='/' style={linkStyle}>
-                react-auth-template
+                RoomMe
             </Link>
         </Navbar.Brand>
 		<Navbar.Toggle aria-controls='basic-navbar-nav' />
