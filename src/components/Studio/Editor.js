@@ -38,7 +38,7 @@ const Editor = (props) => {
                     </Layer>
                 </Stage>
             </Col>
-            <Col>
+            <Col sm={4}>
                 <Selector furniture={props.furniture} paintImage={props.paintImage}/>
             </Col>
             </Row>

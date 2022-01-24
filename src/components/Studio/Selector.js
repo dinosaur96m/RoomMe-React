@@ -1,11 +1,12 @@
 import { useState } from "react"
+import {ButtonGroup, Button} from "react-bootstrap"
 import Thumbnail from "./Thumbnail"
 
 const Selector = (props) => {
     //hold current thumbnails in state
     const [thumbnails, setThumbnails] = useState([])
 
-    // filter furniture props according to buttons
+    // filter furniture props according to Buttons
     const loadThumbs = (e) => {
         // filter by category 
         let filteredFurniture = props.furniture.filter((f) => f.category.includes(e.target.innerText.toLowerCase()))
@@ -18,19 +19,21 @@ const Selector = (props) => {
     })
    
     const categoryButtons = [
-        <button onClick={loadThumbs} key={"Kitchen"}>Kitchen</button>,
-        <button onClick={loadThumbs} key={"Office"}>Office</button>,
-        <button onClick={loadThumbs} key={"Living"}>Living</button>,
-        <button onClick={loadThumbs} key={"Bedroom"}>Bedroom</button>,
-        <button onClick={loadThumbs} key={"Dining"}>Dining</button>,
-        <button onClick={loadThumbs} key={"Art"}>Art</button>
+        <Button variant="outline-info"onClick={loadThumbs} key={"Kitchen"}>Kitchen</Button>,
+        <Button variant="outline-info"onClick={loadThumbs} key={"Office"}>Office</Button>,
+        <Button variant="outline-info"onClick={loadThumbs} key={"Living"}>Living</Button>,
+        <Button variant="outline-info"onClick={loadThumbs} key={"Bedroom"}>Bedroom</Button>,
+        <Button variant="outline-info"onClick={loadThumbs} key={"Dining"}>Dining</Button>,
+        <Button variant="outline-info"onClick={loadThumbs} key={"Art"}>Art</Button>
     ]
 
     return(
         <div>
             <h3>Furniture Selection</h3>
             <div>
-                {categoryButtons}
+                <ButtonGroup>
+                    {categoryButtons}
+                </ButtonGroup>
             </div>
             {thumbs}
         </div>
