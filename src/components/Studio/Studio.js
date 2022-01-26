@@ -23,7 +23,7 @@ const Studio = (props) => {
     // send to : Editior.js
     const [furniture, setFurniture] = useState([])
     const [canvasImages, setCanvasImages] = useState([])
-    const [updatedImage, setUpdatedImage] = useState({})
+    // const [updatedImage, setUpdatedImage] = useState({})
     // send to: CanvasImage.js
     // const [x, setX] = useState(65)
     // const [y, setY] = useState(65)
@@ -114,22 +114,34 @@ const Studio = (props) => {
         })
         } else if (dataFromServer.type === "trackingXy") {
             console.log("setting canavasImages[" + dataFromServer.index + "] x,y to: " + dataFromServer.x + "," + dataFromServer.y )
-            // save array of canvas Image objects
-            let targetedImage = canvasImages[dataFromServer.index]
-            targetedImage.x = dataFromServer.x
-            targetedImage.y = dataFromServer.y
-            setUpdatedImage(() => targetedImage)
 
             setCanvasImages(() => {
                 let canvasState = canvasImages
-                canvasState.splice(dataFromServer.index, 1, updatedImage)
-                // console.log('ci before transfromation', canvasState)
-                // // update the x and y of targeted object
-                // canvasState[dataFromServer.index].x = dataFromServer.x
-                // canvasState[dataFromServer.index].y = dataFromServer.y
-                // console.log('ci after transformation', canvasState)
+                // update the x and y of targeted object
+                canvasState[dataFromServer.index].x = dataFromServer.x
+                canvasState[dataFromServer.index].y = dataFromServer.y
                 return (canvasState)
             })
+
+        /////code that mirrored first motion across sokcet
+            // // save array of canvas Image objects
+            // let targetedImage = canvasImages[dataFromServer.index]
+            // targetedImage.x = dataFromServer.x
+            // targetedImage.y = dataFromServer.y
+            // targetedImage.index = canvasImages.length - 1
+            // // setUpdatedImage(() => targetedImage)
+
+            // setCanvasImages(() => {
+            //     let canvasState = canvasImages
+            //     canvasState.splice(dataFromServer.index, 1)
+            //     canvasState.push(targetedImage)
+            //     // console.log('ci before transfromation', canvasState)
+            //     // // update the x and y of targeted object
+            //     // canvasState[dataFromServer.index].x = dataFromServer.x
+            //     // canvasState[dataFromServer.index].y = dataFromServer.y
+            //     // console.log('ci after transformation', canvasState)
+            //     return (canvasState)
+            // })
         }
     }
 

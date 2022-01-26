@@ -1,14 +1,11 @@
-import { useState} from "react";
+import { useRef } from "react";
 import useImage from "use-image";
-import { Image } from "react-konva";
+import { Konva, Image } from "react-konva";
 
 const CanvasImage = (props) => {
 
-    const [image] = useImage(props.url);
-    // const [x] = useState(props.x)
-    // const [y] = useState(props.y)
-    // const [height, setHeight] = useState(props.height)
-    // const [width, setWidth] = useState(props.width)
+    const [image] = useImage(props.url)
+    const imgRef = useRef(null)
     // const [selected, setSelected] = useState(false)
     // const [isDragging, setIsDragging] = useState(false)
         // useEffect(() => {
@@ -21,8 +18,16 @@ const CanvasImage = (props) => {
         //         console.log(`tracking ${props.imageIndex}th image`)
         //        props.updateXy(target.x, target.y, imageIndex)
         // }
-       
 
+    // animate image to render according to props
+    const animateMotion = (node) => {
+        node.to({
+            x: props.x,
+            y: props.y
+        })
+    }
+    
+    // functions to grow / shrink images 
         // const enlarge = () => {
         //     setWidth(width + 20)
         //     setHeight(height + 20)
@@ -33,28 +38,29 @@ const CanvasImage = (props) => {
         // }
 
         return (
-                <Image 
-                    image={image}
-                    x={props.x}
-					y={props.y}
-                    height={props.height}
-                    width={props.width}
-					draggable
-                    // add ternary to opacity
-                    // opacity={selected ? .5 : 1}
-					// fill={isDragging ? 'green' : 'black'}
-					// onDragStart={(e) => }
-                    // onDragMove={e => props.updateXy(e.target.x(), e.target.y(), props.imageIndex) }
-					onDragEnd={e => {
-						// setIsDragging(false)
-                        props.updateXy(e.target.x(), e.target.y(), props.imageIndex)
-						// props.setX(e.target.x())
-						// props.setY(e.target.y())
-                    }}
-                    // onClick={shrink}    
-                    // onDblTap={enlarge}
-                />
-            )
+            <Image 
+            image={image}
+            x={props.x}
+            y={props.y}
+            ref={imgRef}
+            height={props.height}
+            width={props.width}
+            draggable
+            // add ternary to opacity
+            // opacity={selected ? .5 : 1}
+            // fill={isDragging ? 'green' : 'black'}
+            // onDragStart={(e) => }
+            onDragMove={e => {
+                props.updateXy(e.target.x(), e.target.y(), props.imageIndex) 
+                } 
+            }
+            onDragEnd={e => {
+                animateMotion(e.target)
+            }}
+                // onClick={shrink}    
+                // onDblTap={enlarge}
+            />
+        )
 }
 
 export default CanvasImage
