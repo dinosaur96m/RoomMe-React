@@ -23,8 +23,6 @@ const Studio = (props) => {
     // send to : Editior.js
     const [furniture, setFurniture] = useState([])
     const [canvasImages, setCanvasImages] = useState([])
-    // const [updatedImage, setUpdatedImage] = useState({})
-    // send to: CanvasImage.js
 
     //// get all furniture from the database ////
     const loadFurniture = () => {
