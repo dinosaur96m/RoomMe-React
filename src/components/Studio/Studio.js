@@ -25,8 +25,6 @@ const Studio = (props) => {
     const [canvasImages, setCanvasImages] = useState([])
     // const [updatedImage, setUpdatedImage] = useState({})
     // send to: CanvasImage.js
-    // const [height, setHeight] = useState(props.height)
-    // const [width, setWidth] = useState(props.width)
 
     //// get all furniture from the database ////
     const loadFurniture = () => {
