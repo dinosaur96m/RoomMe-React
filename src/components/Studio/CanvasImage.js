@@ -28,14 +28,7 @@ const CanvasImage = (props) => {
     }
     
     // functions to grow / shrink images 
-        // const enlarge = () => {
-        //     setWidth(width + 20)
-        //     setHeight(height + 20)
-        // }
-        // const shrink = () => {
-        //     setWidth(width - 20)
-        //     setHeight(height - 20)
-        // }
+       
 
         return (
             <Image 
