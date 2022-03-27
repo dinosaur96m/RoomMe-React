@@ -50,12 +50,13 @@ const CanvasImage = (props) => {
             // opacity={selected ? .5 : 1}
             // fill={isDragging ? 'green' : 'black'}
             // onDragStart={(e) => }
-            onDragMove={e => {
-                props.updateXy(e.target.x(), e.target.y(), props.imageIndex) 
-                } 
-            }
+            // onDragMove={e => {
+            //     props.updateXy(e.target.x(), e.target.y(), props.imageIndex) 
+            //     } 
+            // }
             onDragEnd={e => {
-                animateMotion(e.target)
+                props.updateXy(e.target.x(), e.target.y(), props.imageIndex)
+                // animateMotion(e.target)
             }}
                 // onClick={shrink}    
                 // onDblTap={enlarge}

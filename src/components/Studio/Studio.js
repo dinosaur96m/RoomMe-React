@@ -114,7 +114,7 @@ const Studio = (props) => {
                 // update the x and y of targeted object
                 canvasState[dataFromServer.index].x = dataFromServer.x
                 canvasState[dataFromServer.index].y = dataFromServer.y
-                return (canvasState)
+                return ([...canvasState])
             })
 
         /////code that mirrored first motion across sokcet

@@ -13,8 +13,8 @@ const Editor = (props) => {
     
     // map if props is new length
     if (props.canvasImages) {
-        props.canvasImages.forEach(i => {
-            populatedImages.push(<CanvasImage url={i.image} height={i.dimensions[0]} width={i.dimensions[1]} x={i.x} y={i.y} imageIndex={i.imageIndex} updateXy={props.updateXy} /> )
+        props.canvasImages.forEach((i, idx) => {
+            populatedImages.push(<CanvasImage url={i.image} height={i.dimensions[0]} width={i.dimensions[1]} x={i.x} y={i.y} imageIndex={i.imageIndex} updateXy={props.updateXy} key={i._id}/> )
         }) 
     } else {
         
