@@ -110,11 +110,13 @@ const Studio = (props) => {
             console.log("setting canavasImages[" + dataFromServer.index + "] x,y to: " + dataFromServer.x + "," + dataFromServer.y )
 
             setCanvasImages(() => {
-                let canvasState = canvasImages
+                let canvasState = [...canvasImages]
                 // update the x and y of targeted object
+                // probably need to add the spread syntax to this level of 
+                    // inner objects as well
                 canvasState[dataFromServer.index].x = dataFromServer.x
                 canvasState[dataFromServer.index].y = dataFromServer.y
-                return ([...canvasState])
+                return (canvasState)
             })
 
         /////code that mirrored first motion across sokcet
